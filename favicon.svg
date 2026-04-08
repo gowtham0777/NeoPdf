@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <defs>
+    <linearGradient id="crystalFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fecaca"/>
+      <stop offset="48%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="crystalGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.85)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 6 52 21 43 50 21 50 12 21 32 6Z" fill="url(#crystalFill)"/>
+  <path d="M32 6 22 21h20L32 6Z" fill="rgba(255,255,255,0.42)"/>
+  <path d="M12 21h20L21 50 12 21Z" fill="rgba(255,255,255,0.12)"/>
+  <path d="M52 21H32l11 29 9-29Z" fill="rgba(0,0,0,0.14)"/>
+  <path d="M32 6 52 21 32 28 12 21 32 6Z" fill="url(#crystalGlow)"/>
+</svg>

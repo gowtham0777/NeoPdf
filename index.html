@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoPDF | Image to PDF Converter</title>
+  <meta
+    name="description"
+    content="NeoPDF is a fully client-side image to PDF converter with live editing, reordering, page removal, and instant downloads."
+  >
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <nav class="topbar">
+        <a class="brand" href="#" aria-label="NeoPDF Home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img">
+              <defs>
+                <linearGradient id="crystalFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fecaca"></stop>
+                  <stop offset="48%" stop-color="#ef4444"></stop>
+                  <stop offset="100%" stop-color="#b91c1c"></stop>
+                </linearGradient>
+                <linearGradient id="crystalGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.85)"></stop>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"></stop>
+                </linearGradient>
+              </defs>
+              <path d="M32 6 52 21 43 50 21 50 12 21 32 6Z" fill="url(#crystalFill)"></path>
+              <path d="M32 6 22 21h20L32 6Z" fill="rgba(255,255,255,0.42)"></path>
+              <path d="M12 21h20L21 50 12 21Z" fill="rgba(255,255,255,0.12)"></path>
+              <path d="M52 21H32l11 29 9-29Z" fill="rgba(0,0,0,0.14)"></path>
+              <path d="M32 6 52 21 32 28 12 21 32 6Z" fill="url(#crystalGlow)"></path>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>NeoPDF</strong>
+            <span>Edit after merging</span>
+          </span>
+        </a>
+        <a class="ghost-link" href="#workspace">Start Converting</a>
+      </nav>
+
+      <section class="hero-card">
+        <div class="hero-copy">
+          <p class="eyebrow">Fully client-side image to PDF converter</p>
+          <h1>Merge images into one PDF, then keep editing the pages.</h1>
+          <p class="lede">
+            Upload, preview, insert, remove, and reorder pages without losing momentum.
+            Your files stay in the browser from start to finish.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button" id="heroUploadButton" type="button">Upload Images</button>
+            <a class="secondary-button" href="#workspace">See Live Preview</a>
+          </div>
+        </div>
+        <div class="hero-preview" aria-hidden="true">
+          <div class="preview-stack">
+            <article class="mini-card">
+              <span class="mini-label">Page 01</span>
+              <span class="mini-art"></span>
+            </article>
+            <article class="mini-card offset-one">
+              <span class="mini-label">Page 02</span>
+              <span class="mini-art"></span>
+            </article>
+            <article class="mini-card offset-two">
+              <span class="mini-label">Page 03</span>
+              <span class="mini-art"></span>
+            </article>
+          </div>
+          <div class="preview-pill">Add. Remove. Reorder.</div>
+        </div>
+      </section>
+    </header>
+
+    <main id="workspace" class="workspace">
+      <section class="uploader-card">
+        <div class="section-heading">
+          <p class="section-label">Step 1</p>
+          <h2>Drop in your images</h2>
+          <p>PNG, JPG, WEBP, GIF, BMP, and more. Each image becomes one PDF page.</p>
+        </div>
+
+        <button class="dropzone" id="dropzone" type="button">
+          <span class="dropzone-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 4v10m0-10 4 4m-4-4-4 4M5 16.5v1A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+            </svg>
+          </span>
+          <span class="dropzone-copy">
+            <strong>Drag and drop images here</strong>
+            <span>or click to browse your files</span>
+          </span>
+          <span class="dropzone-status hidden" id="dropzoneStatus" aria-live="polite"></span>
+        </button>
+
+        <div class="supported-formats">
+          <span>100% browser-based</span>
+          <span>No upload to a server</span>
+          <span>Instant preview</span>
+        </div>
+      </section>
+
+      <section class="editor-card hidden" id="editorCard">
+        <div class="editor-top">
+          <div class="section-heading compact">
+            <p class="section-label">Step 2</p>
+            <h2>Your editable PDF preview</h2>
+            <p id="statusText">0 pages ready</p>
+          </div>
+          <div class="editor-actions">
+            <button class="action-button" id="addImagesButton" type="button">Add Images</button>
+            <button class="action-button" id="removePagesButton" type="button">Remove Pages</button>
+            <button class="action-button" id="clearAllButton" type="button" disabled>Clear All</button>
+            <button class="ghost-button" id="undoButton" type="button" disabled>Undo Last Action</button>
+            <div class="download-action">
+              <button class="primary-button small" id="downloadButton" type="button" disabled>
+                <span class="button-spinner hidden" id="downloadSpinner" aria-hidden="true"></span>
+                <span id="downloadButtonLabel">Download PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="editor-mode hidden" id="modeBanner"></div>
+
+        <div class="page-tools">
+          <div class="tool-pill" id="pageCountPill">0 pages</div>
+          <div class="tool-pill muted">Drag thumbnails to reorder</div>
+          <div class="tool-pill hidden" id="insertHintPill">Choose an insertion point, then pick images</div>
+        </div>
+
+        <div class="editor-surface" id="editorSurface">
+          <div class="insert-slot hidden" id="insertBeforeAll" data-index="0">
+            <button type="button">Insert at the beginning</button>
+          </div>
+          <div class="pages-grid" id="pagesGrid" aria-live="polite"></div>
+          <div class="empty-editor hidden" id="emptyEditor">
+            <h3>No pages yet</h3>
+            <p>Add images to start building your PDF.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <input id="fileInput" type="file" accept="image/*" multiple hidden>
+
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
